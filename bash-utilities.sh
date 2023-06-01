@@ -2,11 +2,23 @@
 # Start exporting all following functions
 set -a
 
-# Installs a package via apt if it has not been installed yet.
-function apt_install {
+# Checks if the given package is installed. If yes, returns 0, otherwise 1.
+function is_apt_pkg_installed() {
   pkg_installed=$((dpkg-query -W --showformat='${Status}\n' "$1" | grep "install ok installed") 2> /dev/null)
 
-  if [ "" = "$pkg_installed" ]
+  if [[ "" == "$pkg_installed" ]]
+  then
+    return 1
+  else
+    return 0
+  fi
+}
+
+# Installs a package via apt if it has not been installed yet.
+function apt_install {
+  is_apt_pkg_installed "$1"
+  retval=$?
+  if [[ ! $retval ]]
   then
     echo -e "\e[36;1mInstalling apt package: '$1'\e[0m"
     sudo apt install -y "$@"
@@ -58,7 +70,7 @@ function rec_resolve_dir {
 function add_apt_source() {
   src=$1
   lst=/etc/apt/sources.list.d/$2
-  cnt=$(find /etc/apt/ -name "*.list" | xargs cat | egrep -F $src | wc -l)
+  cnt=$(find /etc/apt/ -name "*.list" | xargs cat | grep -F "$src" | wc -l)
   if [ $cnt -eq 0 ] 
   then
     echo -e "\e[36;1mUpdating APT source $lst\e[0m"
