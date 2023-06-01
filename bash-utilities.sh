@@ -4,6 +4,7 @@ set -a
 
 # Checks if the given package is installed. If yes, returns 0, otherwise 1.
 function is_apt_pkg_installed() {
+  set +e
   pkg_installed=$((dpkg-query -W --showformat='${Status}\n' "$1" | grep "install ok installed") 2> /dev/null)
 
   if [[ "" == "$pkg_installed" ]]

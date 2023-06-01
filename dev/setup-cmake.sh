@@ -4,7 +4,7 @@
 # as it requires the custom "bash-utilities"
 set -e # Abort on error
 [[ $(type -t apt_install) == function ]] || source ./bash-utilities.sh
-
+set +e
 
 echo
 echo

@@ -4,6 +4,13 @@
 # as it requires the custom "bash-utilities"
 set -e # Abort on error
 [[ $(type -t apt_install) == function ]] || source ./bash-utilities.sh
+set +e
+
+echo
+echo
+echo -e "\e[36;1m---------------------------------------------------------------------"
+echo -e "Installing basic tools & libraries for software development\e[0m"
+echo
 
 # Common tools
 apt_install ffmpeg
