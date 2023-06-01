@@ -15,7 +15,8 @@ echo
 # Common tools
 apt_install checkinstall
 apt_install ffmpeg
-apt_install jq # JSON parser
+apt_install jq          # JSON parser
+apt_install codespell   # Fixes typos in text files
 
 # Common libraries & tools
 apt_install libatlas-base-dev
