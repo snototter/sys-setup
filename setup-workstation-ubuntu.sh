@@ -38,11 +38,12 @@ echo -e "Development tools\e[0m"
 
 /bin/bash dev/setup-basics.sh
 /bin/bash dev/setup-cmake.sh
+/bin/bash dev/setup-rust.sh
+# rust should be installed before setting up git
 /bin/bash dev/setup-git.sh
 /bin/bash dev/setup-tex-pdf.sh
 /bin/bash dev/setup-cpp-environment.sh
 /bin/bash dev/setup-python-environment.sh
-/bin/bash dev/setup-rust.sh
 
 echo
 echo
