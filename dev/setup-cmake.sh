@@ -4,12 +4,13 @@
 # Workflow adopted from https://apt.kitware.com/
 # Download the signing key:
 wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
-# This script should be extended once new LTS versions are supported by kitware:
+# TODO Whenever their signing key changes, you need to re-download it (rerun command above)
+# TODO This script should be extended once new LTS versions are supported by kitware:
 osversion=$(cut -f2 <<< $(lsb_release -r))
 # OS specific setup:
 if [[ $osversion == "22.04" ]]
 then
-  echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
+  add_apt_source 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' kitware.list
 else
   if [[ $osversion == "20.04" ]]
   then

@@ -1,9 +1,20 @@
 #!/bin/bash --
 # Basic build tools
-sudo apt install -y build-essential checkinstall ninja-build
+apt_install build-essential
+apt_install checkinstall
+apt_install ninja-build
 
-# Common libraries
-sudo apt install -y ffmpeg libavcodec-dev libavformat-dev libavutil-dev libavdevice-dev libswscale-dev libcurl4-openssl-dev libconfig++-dev libeigen3-dev libatlas-base-dev libatlas3-base libcairo2-dev
+# Analysers
+apt_install valgrind
+apt_install cppcheck # static code analyser
+apt_install lcov # gcov extension
+
+#TODO other analysers
+
+# OpenCV
+apt_install libopencv-contrib-dev
+apt_install libopencv-dev
+
 
 echo -e "\033[31;1m---------------------------------------------------------------------"
 echo "TODO: LLVM cppcheck etc\e[0m"
@@ -15,10 +26,5 @@ sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 sudo apt install -y clang-tidy-15 clang-format-15
 
 
-# static code analyser: cpp-check
-sudo apt install -y cppcheck
-
-# install lcov (gcov) extension
-sudo apt install -y lcov
 
 #TODO install googletest
