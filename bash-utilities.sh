@@ -1,4 +1,6 @@
 #!/bin/bash --
+# Start exporting all following functions
+set -a
 
 # Installs a package via apt if it has not been installed yet.
 function apt_install {
@@ -8,8 +10,10 @@ function apt_install {
   then
     echo -e "\e[36;1mInstalling apt package: '$1'\e[0m"
     sudo apt install -y "$@"
+    return $?
   else
     echo -e "\e[36;1mSkipping already installed apt package: '$1'\e[0m"
+    return 0
   fi
 }
 
@@ -21,8 +25,10 @@ function snap_install {
   then
     echo -e "\e[36;1mInstalling snap package: '$1'\e[0m"
     sudo snap install "$@"
+    return $?
   else
     echo -e "\e[36;1mSkipping already installed snap package: '$1'\e[0m"
+    return 0
   fi
 }
 
@@ -43,4 +49,25 @@ function rec_resolve_dir {
   done
   resdir="$(cd -P "$( dirname "${src}" )" >/dev/null 2>&1 && pwd)"
   echo "${resdir}"
+  return 0
 }
+
+# Adds the APT source if it has not yet been added.
+# Usage example:
+#   add_apt_source 'deb url ...' some-source.list
+function add_apt_source() {
+  src=$1
+  lst=/etc/apt/sources.list.d/$2
+  cnt=$(find /etc/apt/ -name "*.list" | xargs cat | egrep -F $src | wc -l)
+  if [ $cnt -eq 0 ] 
+  then
+    echo -e "\e[36;1mUpdating APT source $lst\e[0m"
+    echo $src | sudo tee $lst >/dev/null
+    sudo apt update
+  fi
+  return 0
+}
+
+# Stop exporting
+set +a
+
