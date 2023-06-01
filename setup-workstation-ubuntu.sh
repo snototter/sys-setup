@@ -4,7 +4,7 @@ os_name=$(lsb_release -si)
 os_version=$(lsb_release -sr)
 
 # Check OS version
-if [[ "Ubuntu" != "${os_name}" || "22.04" != "${os_version}" ]]
+if [[ "Ubuntu" != "${os_name}" || ("22.04" != "${os_version}" && "20.04" != "${os_version}" )]]
 then
   echo -e "\033[31;1m---------------------------------------------------------------------"
   echo "Error: Expected Ubuntu 22.04, but current OS is ${os_name} ${os_version}\e[0m"
