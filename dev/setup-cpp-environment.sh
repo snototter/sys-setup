@@ -15,7 +15,6 @@ echo
 
 # Basic build tools
 apt_install build-essential
-apt_install checkinstall
 apt_install ninja-build
 
 

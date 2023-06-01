@@ -5,13 +5,11 @@ set -a
 # Checks if the given package is installed. If yes, returns 0, otherwise 1.
 function is_apt_pkg_installed() {
   set +e
-  pkg_installed=$((dpkg-query -W --showformat='${Status}\n' "$1" | grep "install ok installed") 2> /dev/null)
-
-  if [[ "" == "$pkg_installed" ]]
-  then
-    return 1
-  else
+  pkg=$1
+  if dpkg --get-selections | grep -q "^$pkg\(\|:[^\s]*\)*[[:space:]]*install$" >/dev/null; then
     return 0
+  else
+    return 1
   fi
 }
 
@@ -19,7 +17,7 @@ function is_apt_pkg_installed() {
 function apt_install {
   is_apt_pkg_installed "$1"
   retval=$?
-  if [[ ! $retval ]]
+  if [[ $retval -ne 0 ]]
   then
     echo -e "\e[36;1mInstalling apt package: '$1'\e[0m"
     sudo apt install -y "$@"
