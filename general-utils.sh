@@ -10,6 +10,7 @@ echo
 echo
 echo -e "\e[36;1m---------------------------------------------------------------------"
 echo -e "Installing general dependencies, common libraries & system tools\e[0m"
+echo
 
 
 # Prerequisite packages to add other software sources:

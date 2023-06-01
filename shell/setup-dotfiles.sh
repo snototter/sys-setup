@@ -52,8 +52,11 @@ backup_dotfile() {
   mv $src $dst
   return $?
 }
+
 export -f backup_dotfile
+
 export backup_dotdir=$backup_dotdir
+
 mkdir -p $backup_dotdir && \
   dotconfig checkout 2>&1 | egrep "^\s+[[:alnum:]\.]" | awk {'print $1'} | \
   xargs -I{} /bin/bash -c 'backup_dotfile "$@" "$backup_dotdir"' _ {}

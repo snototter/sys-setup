@@ -25,7 +25,7 @@ function apt_install {
     sudo apt install -y "$@"
     return $?
   else
-    echo -e "\e[36;1mSkipping already installed apt package: '$1'\e[0m"
+    echo "Skipping already installed apt package: '$1'"
     return 0
   fi
 }
@@ -40,7 +40,7 @@ function snap_install {
     sudo snap install "$@"
     return $?
   else
-    echo -e "\e[36;1mSkipping already installed snap package: '$1'\e[0m"
+    echo "Skipping already installed snap package: '$1'"
     return 0
   fi
 }

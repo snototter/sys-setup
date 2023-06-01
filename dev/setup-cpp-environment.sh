@@ -38,7 +38,7 @@ then
   sudo ./llvm.sh 15
   rm llvm.sh
 else
-  echo -e "\e[36;1mSkipping already installed LLVM toolchain\e[0m"
+  echo -e "Skipping already installed LLVM toolchain"
 fi
 
 
