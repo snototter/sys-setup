@@ -40,7 +40,7 @@ backup_dotfile() {
   then
     mkdir -p $backupdir/$pth
     retval=$?
-    if [[ retval -ne 0 ]]
+    if [[ $retval -ne 0 ]]
     then
       echo -e "\033[31;1mCould not create backup dir: '$backupdir/$pth'! Aborting now.\e[0m"
       exit 1
