@@ -79,6 +79,21 @@ function add_apt_source() {
   return 0
 }
 
+# Adds the APT repository if it has not yet been added
+function add_apt_repository() {
+  usr=$1
+  ppa=$2
+  str="${usr}.*${ppa}"
+  cnt=$(find /etc/apt/ -name "*.list" | xargs cat | egrep "$str" | wc -l)
+  if [ $cnt -eq 0 ] 
+  then
+    echo -e "\e[36;1mAdding APT repository $usr/$ppa\e[0m"
+    sudo apt-add-repository -y ppa:$usr/$ppa
+    sudo apt update
+  fi
+  return 0
+}
+
 # Stop exporting
 set +a
 
