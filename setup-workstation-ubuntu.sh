@@ -50,6 +50,13 @@ echo
 echo -e "\e[36;1m---------------------------------------------------------------------"
 echo -e "Terminal\e[0m"
 
+/bin/bash shell/setup-homebrew.sh
+if ! command -v brew &> /dev/null
+then
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 /bin/bash shell/setup-zsh.sh
 /bin/bash shell/setup-dotfiles.sh
 

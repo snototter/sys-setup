@@ -6,14 +6,19 @@ set -e # Abort on error
 [[ $(type -t apt_install) == function ]] || source ./bash-utilities.sh
 set +e
 
-apt_install -y zsh
+apt_install zsh
+sudo chsh -s /usr/bin/zsh
+
+# fuzzy finder
+brew install fzf
+$(brew --prefix)/opt/fzf/install 
 
 # oh-my-zsh basic install
 if [ ! -d "$HOME/.oh-my-zsh" ]
 then
   echo -e "\e[36;1m---------------------------------------------------------------------"
   echo "Installing oh-my-zsh\e[0m"
-
+  export RUNZSH=no
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   echo -e "\033[31;1m---------------------------------------------------------------------"
   echo "TODO reboot/re-login; if needed replace default shell for user via:\nchsh -s $(which zsh)\e[0m"
@@ -36,9 +41,12 @@ else
   mkdir -p ~/.local/share/fonts/
   mv Meslo*.ttf ~/.local/share/fonts/
   fc-cache -f -v
-  echo -e "\e[36;1mManual font selection required:\e[0m"
-  echo "Open 'Terminal → Preferences' and click on the selected profile under 'Profiles'."
-  echo "Check 'Custom font' under 'Text Appearance' and select 'MesloLGS NF Regular'."
+  
+  echo -e "\e[36;1mLoading custom gnome-terminal profile\e[0m"
+  scriptdir=$(rec_resolve_dir ${BASH_SOURCE[0]})
+  dconf load /org/gnome/terminal/legacy/profiles:/ < "$scriptdir/../data/gnome-terminal-profiles.dconf"
+  # echo "Open 'Terminal → Preferences' and click on the selected profile under 'Profiles'."
+  # echo "Check 'Custom font' under 'Text Appearance' and select 'MesloLGS NF Regular'."
 fi
 
 # p10k installation
@@ -74,4 +82,5 @@ else
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $dst
   # This plugin is included in my .zshrc via dotfiles
 fi
+
 
