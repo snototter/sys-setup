@@ -30,6 +30,7 @@ apt_install mlocate
 
 apt_install figlet
 apt_install lolcat
+apt_install cowsay
 
 # Editors
 apt_install vim
