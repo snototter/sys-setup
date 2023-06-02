@@ -57,6 +57,7 @@ apt_install xsel
 # Misc
 apt_install screenruler
 
+echo -e "\e[36;1mUpdating APT packages\e[0m"
 # Clean up
 sudo apt update -y
 sudo apt upgrade -y
